@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-#9m*y*&$j#_2z8@$23ri$qw#v86m725+4hwcg*g(f)fo)hk4)y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["project-nexus-j3pl.onrender.com"]
 
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
