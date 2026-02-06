@@ -120,6 +120,7 @@ RabbitMQ Broker
 
 ## 📁 Project Structure
 
+```
 nexus/
 ├── manage.py
 ├── requirements.txt
@@ -134,3 +135,4 @@ nexus/
 │ ├── tasks.py
 │ └── serializers.py
 └── staticfiles/
+```
