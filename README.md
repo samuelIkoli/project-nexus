@@ -1,6 +1,6 @@
 # 📚 Project Nexus — EdTech Learning Platform (Backend)
 
-Project NExus is a backend-powered EdTech platform built with Django that enables teachers to publish paid video courses and learners to purchase and access educational content.
+Project Nexus is a backend-powered EdTech platform built with Django that enables teachers to publish paid video courses and learners to purchase and access educational content.
 
 The platform supports user authentication, course management, secure payment tracking, background task processing with Celery, and public API documentation via Swagger.
 
@@ -101,6 +101,21 @@ RabbitMQ Broker
 - provider
 - status
 
+#### CourseReview
+- id
+- learner_id
+- course_id
+- rating (1–5)
+- comment
+- created_at
+
+#### TeacherReview
+- id
+- learner_id
+- teacher_id
+- rating (1–5)
+- comment
+- created_at
 ---
 
 ## 📁 Project Structure
