@@ -1,5 +1,6 @@
 ## This is the schema as well as the dbml language used to design the visual representation on [dbdiagram.io](https://dbdiagram.io/)
 
+```
 Table users {
   id uuid [primary key]
   email varchar [not null, unique]
@@ -82,3 +83,4 @@ Ref: course_reviews.learner_id > users.id // many-to-one (learner -> course revi
 Ref: course_reviews.course_id > courses.id // many-to-one (course -> course reviews)
 Ref: teacher_reviews.learner_id > users.id // many-to-one (learner -> teacher reviews)
 Ref: teacher_reviews.teacher_id > users.id // many-to-one (teacher -> teacher reviews)
+```
