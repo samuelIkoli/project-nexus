@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
 
 from .serializers import (
     RegisterSerializer,
@@ -11,6 +12,7 @@ from .serializers import (
 
 
 class RegisterView(generics.CreateAPIView):
+    swagger_tags = ["Users"]
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -26,6 +28,7 @@ class RegisterView(generics.CreateAPIView):
 
 
 class EmailObtainAuthToken(ObtainAuthToken):
+    swagger_tags = ["Users"]
     serializer_class = EmailAuthTokenSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -38,6 +41,7 @@ class EmailObtainAuthToken(ObtainAuthToken):
 
 
 class ProfileView(generics.RetrieveUpdateAPIView):
+    swagger_tags = ["Users"]
     serializer_class = UserSerializer
 
     def get_object(self):

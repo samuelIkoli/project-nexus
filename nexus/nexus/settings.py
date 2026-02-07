@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -44,6 +45,12 @@ CELERY_BROKER_URL = os.getenv(
     "CELERY_BROKER_URL", "amqp://guest:guest@localhost:5672//"
 )
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "rpc://")
+CELERY_BEAT_SCHEDULE = {
+    "ping-hosted-app": {
+        "task": "notifications.tasks.ping_endpoint",
+        "schedule": timedelta(minutes=13),
+    },
+}
 
 
 

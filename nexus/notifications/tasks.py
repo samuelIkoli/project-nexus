@@ -1,9 +1,14 @@
+import logging
+import urllib.request
+
 from celery import shared_task
-from django.core.mail import send_mail
 from django.conf import settings
+from django.core.mail import send_mail
 
 from payments.models import Payment
 from courses.models import Enrollment
+
+logger = logging.getLogger(__name__)
 
 
 @shared_task
@@ -46,3 +51,17 @@ def send_enrollment_notification(enrollment_id: int):
         fail_silently=True,
     )
     return f"Sent enrollment notification to {enrollment.learner.email}"
+
+
+@shared_task
+def ping_endpoint():
+    """
+    Lightweight GET request to keep the hosted instance warm.
+    """
+    url = "https://project-nexus-j3pl.onrender.com/v1"
+    try:
+        with urllib.request.urlopen(url, timeout=10) as resp:
+            return f"Pinged {url} -> {resp.status}"
+    except Exception as exc:
+        logger.warning("Ping to %s failed: %s", url, exc)
+        return f"Ping failed: {exc}"

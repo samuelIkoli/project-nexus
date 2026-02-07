@@ -30,12 +30,16 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
-urlpatterns = [
+v1_patterns = [
     path("admin/", admin.site.urls),
-    path("api/users/", include("users.urls")),
-    path("api/", include("courses.urls")),
-    path("api/payments/", include("payments.urls")),
-    path("api/", include("notifications.urls")),
+    path("users/", include("users.urls")),
+    path("", include("courses.urls")),
+    path("payments/", include("payments.urls")),
+    path("", include("notifications.urls")),
+]
+
+urlpatterns = [
+    path("v1/", include((v1_patterns, "v1"), namespace="v1")),
     re_path(r"^swagger/$", schema_view.with_ui("swagger", cache_timeout=0)),
     re_path(r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0)),
 ]

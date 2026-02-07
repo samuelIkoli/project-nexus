@@ -3,6 +3,7 @@ from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
 
 from users.permissions import IsTeacher, IsLearner
 from .models import Course, Lesson, Enrollment, CourseReview, TeacherReview
@@ -16,6 +17,7 @@ from .serializers import (
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+    swagger_tags = ["Courses"]
     serializer_class = CourseSerializer
 
     def get_queryset(self):
@@ -55,6 +57,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 
 class LessonViewSet(viewsets.ModelViewSet):
+    swagger_tags = ["Lessons"]
     serializer_class = LessonSerializer
 
     def get_queryset(self):
@@ -87,6 +90,7 @@ class LessonViewSet(viewsets.ModelViewSet):
 
 
 class EnrollmentViewSet(viewsets.ModelViewSet):
+    swagger_tags = ["Enrollments"]
     serializer_class = EnrollmentSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ["get", "post", "patch", "head", "options"]
@@ -132,6 +136,7 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
 
 
 class CourseReviewViewSet(viewsets.ModelViewSet):
+    swagger_tags = ["Course Reviews"]
     serializer_class = CourseReviewSerializer
     http_method_names = ["get", "post", "patch", "delete", "head", "options"]
 
@@ -165,6 +170,7 @@ class CourseReviewViewSet(viewsets.ModelViewSet):
 
 
 class TeacherReviewViewSet(viewsets.ModelViewSet):
+    swagger_tags = ["Teacher Reviews"]
     serializer_class = TeacherReviewSerializer
     http_method_names = ["get", "post", "patch", "delete", "head", "options"]
 

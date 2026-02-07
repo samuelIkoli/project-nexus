@@ -1,5 +1,6 @@
 from rest_framework import permissions, viewsets
 from rest_framework.exceptions import PermissionDenied
+from drf_yasg.utils import swagger_auto_schema
 
 from users.permissions import IsLearner
 from .models import Payment
@@ -7,6 +8,7 @@ from .serializers import PaymentSerializer
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
+    swagger_tags = ["Payments"]
     serializer_class = PaymentSerializer
     http_method_names = ["get", "post", "head", "options"]
 
