@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from datetime import timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -45,14 +44,11 @@ CELERY_BROKER_URL = os.getenv(
     "CELERY_BROKER_URL", "amqp://guest:guest@localhost:5672//"
 )
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "rpc://")
-CELERY_BEAT_SCHEDULE = {
-    "ping-hosted-app": {
-        "task": "notifications.tasks.ping_endpoint",
-        "schedule": timedelta(minutes=13),
-    },
-}
 
-
+CRONJOBS = [
+    ("*/13 * * * *", "notifications.tasks.ping_endpoint"),
+    ("*/13 * * * *", "django.core.management.call_command", ["ping_hosted"]),
+]
 
 # Application definition
 
@@ -63,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_crontab",
     "rest_framework",
     "rest_framework.authtoken",
     "drf_yasg",
@@ -152,6 +149,31 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {
+            "format": "[{levelname}] {asctime} {name}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+    },
+    "loggers": {
+        "notifications": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "notifications.management.commands.ping_hosted": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
 
 
 # Default primary key field type
